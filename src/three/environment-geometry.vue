@@ -56,7 +56,7 @@
     const loadingManager = new THREE.LoadingManager(onLoad, onProgress, onError);
     /**==============end 加载loading===================*/
     /**==============start 初始化===================*/
-    // 场景
+        // 场景
     const scene = new THREE.Scene()
     // 初始化相机
     const camera = new THREE.PerspectiveCamera(
@@ -73,7 +73,7 @@
     scene.add(axesHelper)
     /**==============end 初始化===================*/
 
-    // 几何体
+        // 几何体
     const sphereGeometry = new THREE.SphereGeometry(1, 20,20);
     const material = new THREE.MeshStandardMaterial({
         metalness: 0.7,
@@ -182,8 +182,8 @@
 <style scoped>
 
     .content {
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         background-color: #f0f0f0;

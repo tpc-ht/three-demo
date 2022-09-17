@@ -2,7 +2,7 @@
 <template>
     <div class="content">
         <div class="container" ref="container"></div>
-        <div class="load" v-if="loadText!==100">
+        <div class="load" v-if="loadText!==100" ref="mainDom">
             <el-progress :width="60" type="circle" :percentage="loadText" >
                 <span class="load-text">{{loadText}}%</span>
             </el-progress>
@@ -20,6 +20,7 @@
     import * as dat from "dat.gui";
     import {ref, onMounted} from "vue";
 
+    const mainDom = ref();
     const container = ref(null);
 
     /**==============start 加载loading===================*/
@@ -147,13 +148,16 @@
     scene.add(directionalLight);
 
     //
-    // 初始化渲染器
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+
 
     // 挂载完毕之后获取dom
     onMounted(() => {
         console.log("挂载")
+
+        const {clientWidth,clientHeight} = mainDom.value
+        // 初始化渲染器
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(clientWidth,clientHeight);
         //添加控制器
         const controls = new OrbitControls(camera, container.value);
         controls.enableDamping = true;
@@ -176,19 +180,11 @@
     });
 </script>
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
-</style>
-
 <style scoped>
 
     .content {
-        height: 100vh;
-        width: 100vw;
+        height: 100%;
+        width: 100%;
         background-color: #f0f0f0;
         position: relative;
     }
@@ -196,7 +192,7 @@
     .load {
         width: 100%;
         height: 100%;
-        position: fixed;
+        position: absolute;
         right: 0;
         top: 0;
         left: 0;
